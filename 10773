@@ -1,0 +1,33 @@
+#include<iostream>
+#include<stack>
+
+using namespace std;
+
+
+int main() {
+	stack<int> arr;
+	int rep;
+	int num;
+	int total = 0;
+	cin >> rep;
+	for (int i = 0; i < rep; i++) {
+		cin >> num;
+		if (num == 0) {
+			arr.pop();
+		
+		}
+		else {
+			arr.push(num);
+		}
+	}
+	if (arr.empty())cout << 0;
+	
+	else{
+		while (!arr.empty()) {
+			total += arr.top();
+			arr.pop();
+
+		}
+		cout << total;
+	}
+}
