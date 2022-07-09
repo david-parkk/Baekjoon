@@ -1,0 +1,88 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+
+void dfs(vector<vector<int>>&arr1, pair<int, int>data[2500], const int& pairy, const int& pairx, const int& sizey,const int& sizex,const int& cab,const int& indexcount) {//sizex는 세로길이 sizey는 가로길이
+	arr1[pairx][pairy] = -1;
+	
+	//cout << "pairx" << pairx <<"pairy"<< pairy << endl;
+	for (int i = 0; i < cab; i++) {
+		if ((abs(pairx - data[i].second) + abs(pairy - data[i].first)) == 1) {
+			if(arr1[data[i].second][data[i].first]==1){
+				//cout << "Adsf";
+				dfs(arr1, data, data[i].first, data[i].second, sizey, sizex, cab, indexcount);
+			}
+		}
+		
+	}
+	
+}
+int main() {
+	int count = 0;
+
+	cin >> count;
+	for(int i=0;i<count;i++){
+	
+		int x, y, cab;
+		cin >> y >> x >> cab;//입력
+
+		vector<vector<int>>arr1(x,vector<int>(y,0));//x는 세로길이 y는 가로길이
+		pair<int, int>data[2500];
+		/*vector<int>arr2(y);
+		for (int i = 0; i < x; i++) {
+			cout << "asdf" << endl;
+			arr1.push_back(arr2);
+		}*/
+		int a = 1;
+		/*for (auto i : arr1) {
+			for (auto j : i) {
+				cout << a;
+				a++;
+			}
+			cout << endl;
+			
+		}*/
+		for (int i = 0; i < cab; i++) {
+			int caby, cabx;
+			cin >> caby>>cabx;
+			arr1[cabx][caby] = 1;
+			data[i] = make_pair(caby, cabx);
+		}
+		/*for (auto i : arr1) {
+			for (auto j : i) {
+				//cout << a;
+				cout << j;
+			}
+			cout << endl;
+
+		}*/
+		//배추 배치 완료
+		int dfscount = 0;
+		for (int i = 0; i < cab; i++) {
+			int pairy = data[i].first;
+			int pairx = data[i].second;
+			if (arr1[data[i].second][data[i].first] == 1) {//dfs시작
+				dfs(arr1,data,pairy,pairx, y, x,cab,i);
+				dfscount++;
+			}
+		}
+		cout << dfscount << endl;
+		/*for (auto i : arr1) {
+			for (auto j : i) {
+				//cout << a;
+				cout << j;
+			}
+			cout << endl;
+
+		}*/
+
+		
+		
+	}
+	
+
+
+	return 0;
+}
