@@ -1,0 +1,36 @@
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int counta;
+int** memo;
+int memomax[10000];
+
+void circle(int num) {
+
+	memo[1][0] = memo[0][0];
+	memo[1][1] = memo[0][1];
+	memomax[0] = memo[0][0];
+	memomax[1] = memo[0][0] + memo[0][1];
+
+	for (int i = 2; i < num; i++) {
+		memo[1][i] = memomax[i - 2] + memo[0][i];
+		memomax[i] = max(memo[1][i - 1], memomax[i - 2]) + memo[0][i];
+	}
+	cout << memomax[num - 1]<<endl;
+}
+
+int main() {
+	cin >> counta;
+	memo = new int*[2];
+	for (int i = 0; i < 2; i++) {
+		memo[i] = new int[counta];
+	}
+	for (int i = 0; i < counta; i++) {
+		cin >> memo[0][i];
+	}
+	circle(counta);
+	return 0;
+}
+
