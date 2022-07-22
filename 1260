@@ -1,0 +1,126 @@
+#include<iostream>
+#include<stack>
+#include<queue>
+
+using namespace std;
+stack<int>df1[2000];
+//stack<int>df2[2000];
+queue<int>bf1[2000];
+bool map[1000][1000];
+
+int visited1[1000] = { 0 };
+int visited2[1000] = { 0 };
+//int arr1[2000];
+//int arr2[2000];
+
+int node, rel, stp;
+
+void dfs(int num) {
+	//cout << num << endl;
+	int top = num-1;
+	df1->push(num - 1);
+	while (!df1->empty()){
+		top = df1->top();
+		df1->pop();
+		if(visited1[top] != 1)
+		cout << top + 1 << " ";
+		visited1[top] = 1;
+		
+		for (int i = node - 1; i >= 0; i--) {
+			if (map[top][i] == 1) {
+				if (visited1[i] == 0)
+					df1->push(i);//1작은 수가 들어감 주의!!
+
+			}
+		}
+		
+	}
+}
+void bfs(int num) {
+	int fron;
+	bf1->push(num-1);
+	while(!bf1->empty()){
+		fron = bf1->front();
+		bf1->pop();
+		if (visited2[fron] != 1)
+			cout << fron + 1 <<" ";
+		visited2[fron] = 1;
+		for (int i = 0; i < node; i++) {
+			if (map[fron][i] == 1) {
+				if (visited2[i] == 0)
+					bf1->push(i);//1작은 수가 들어감 주의!!
+				//cout << "push:  " << i << endl;
+
+			}
+		}
+	}
+}
+
+
+int main() {
+	int  fir, sec;
+	cin >> node >> rel >> stp;
+	for (int i = 0; i < rel;i++) {
+		cin >> fir >> sec;
+		map[fir - 1][sec - 1] = true;
+		map[sec - 1][fir - 1] = true;
+	}
+	dfs(stp);
+	cout << endl;
+	bfs(stp);
+	return 0;
+}
+//bool checkvisited(int num) {
+//	if (visited1[num - 1] == 0)
+//		return false;
+//	return true;
+//}
+//void dfs(int num) {
+//	
+//	int i = 0;
+//	
+//	df1->push(stp);
+//	visited1[stp-1] = 1;
+//	//cout << stp << endl;
+//	do{
+//		//cout << "df1 (top) :  "<< df1->top() << endl;
+//		int num1 = df1->top();
+//		
+//		if(visited1[df1->top() - 1] != 1)
+//		cout << df1->top() << endl;
+//		visited1[df1->top() - 1] = 1;
+//		df1->pop();
+//		
+//	for (int i = rel*2-1; i >=0; i--) {
+//		if (arr1[i] == num1) {
+//			if(!checkvisited(arr2[i])){
+//				df1->push(arr2[i]);
+//				//visited1[df1->top()-1] = 1;
+//				//cout << arr2[i] << endl;
+//				//cout <<  "push(arr2[i]):  " << arr2[i] << endl;
+//			}
+//		}
+//	}
+//		/*int num1 = df1->top();
+//		df1->pop();
+//		visited1[num1] = 1;
+//		cout << num1 << endl;
+//		stp = num1;*/
+//	
+//	} while (!df1->empty());
+//}
+//
+//
+//int main() {
+//	int  fir, sec;
+//	cin >> node >> rel >> stp;
+//	for (int i = 0; i < rel;i++) {
+//		cin >> fir >> sec;
+//		arr1[i] = fir;
+//		arr2[i] = sec;
+//		arr1[i + rel] = sec;
+//		arr2[i + rel] = fir;
+//	}
+//	dfs(stp);
+//	return 0;
+//}
