@@ -1,0 +1,49 @@
+#include<iostream>
+
+using namespace std;
+int num1[41];
+int num0[41];
+int num2[41];
+int open[41] = { 0 };
+int fibonacci(int n, int& fibo0,int& fibo1) {
+    if (open[n] != 0) {
+        fibo0 += num0[n];
+        fibo1 += num1[n];
+        return num2[n];
+    }
+    else if (n == 0) {
+        //printf("0");
+        fibo0++;
+        return 0;
+    }
+    else if (n == 1) {
+       // printf("1");
+        fibo1++;
+        return 1;
+    }
+    else {
+        int one = fibonacci(n - 1, fibo0, fibo1);
+        int two = fibonacci(n - 2, fibo0, fibo1);
+        num0[n] = fibo0;
+        num1[n] = fibo1;
+        open[n] = 1;
+        return one + two;
+    }
+}
+
+int main() {
+    int rep;
+    int num;
+    cin >> rep;
+
+    for (int i = 0; i < rep; i++) {
+        int k = 0;
+        int j = 0;
+        cin >> num;
+        fibonacci(num,k,j);
+        cout << k <<" " << j;
+        printf("\n");
+        k = 0;
+        j = 0;
+    }
+}
