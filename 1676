@@ -1,0 +1,35 @@
+#include<iostream>
+
+
+using namespace std;
+int find5(int num) {
+	int a = 0;
+	int num2 = num;
+	while (num2 % 5 == 0) {
+		
+		a++;
+		num2 = num2 / 5;
+	}
+	return a;
+}
+int main() {
+
+	int num;
+	cin >> num;
+	int total=1;
+	int result = 1;
+	for (int i = num; i > 0; i--) {
+		result += find5(i);
+		
+		//cout << i << endl;
+	}
+	//cout << total;
+	
+	
+	/*while (total % 10 == 0) {
+		total = total / 10;
+		result++;
+	}*/
+	cout << result-1;
+	return 0;
+}
