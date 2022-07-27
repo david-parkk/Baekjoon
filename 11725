@@ -1,0 +1,85 @@
+#include<iostream>
+#include<queue>
+#include<vector>
+using namespace std;
+vector <int>arr1[100001];
+int arr3[100001] = { 0 };
+int visited[100001] = { 0 };
+queue <int>que;
+void bfs(int num) {
+
+	while(!que.empty()){
+	int fron = que.front();
+	que.pop();
+
+	for (int i = 0; i < arr1[fron].size(); i++) {
+		int child = arr1[fron][i];
+		if(arr3[child]==0){
+			que.push(child);
+			arr3[child] = fron;
+		}
+	}
+	}
+	
+}
+
+//void relay(int num) {//num은 부모
+//	/*for (int i = 0; i < 7; i++) {
+//		cout << arr3[i] << "  ";
+//	}
+//	cout << endl << "=============" << endl;
+//	cout << endl;*/
+//	for (int i = 0; i < 100000; i++) {
+//		if (arr1[i] == num&&arr3[arr2[i]-1]==0) {
+//			arr3[arr2[i]-1] = num;
+//		/*	cout << "case1" << endl;
+//			cout << "i : " << i << endl;*/
+//			relay(arr2[i]);
+//			
+//		}
+//		else if (arr2[i] == num && arr3[arr1[i]-1] == 0) {
+//			arr3[arr1[i] - 1] = num;
+//			/*cout << "case2" << endl;
+//			cout << "i : " << i << endl;*/
+//			relay(arr1[i]);
+//			
+//		}
+//	}
+//	
+//	
+//}
+int main() {
+
+	int nodecount;
+	cin >> nodecount;
+	int fir, sec;
+	
+	for (int i = 0; i < nodecount-1; i++) {
+		cin >> fir >> sec;
+		arr1[fir].push_back(sec);
+		arr1[sec].push_back(fir);
+		
+		
+		
+		
+		
+	}
+	que.push(1);
+	arr3[1] = 1;
+	bfs(1);
+	//for (int i = 0; i < 100000; i++) {
+	//	if (arr3[i] > 0) {
+	//		//cout << i << endl;
+	//		relay(i + 1);
+	//	}
+	//}
+	for (int i = 2; i <= nodecount; i++) {
+		cout << arr3[i];
+		printf("\n");
+	}
+
+	//while()
+
+
+	return 0;
+}
