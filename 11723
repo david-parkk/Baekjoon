@@ -1,0 +1,70 @@
+#include<iostream>
+#include<string>
+using namespace std;
+unsigned int bitmasking = 0;
+void add(const int& num) {
+	bitmasking = bitmasking | (1 << (num));
+}
+
+void remove(const int& num) {
+	//arr.clear(num);
+	bitmasking = bitmasking & ~(1 << (num));
+	
+}
+int check(const int& num) {
+	if ((bitmasking & (1 << (num))) > 0)
+		return 1;
+	return 0;
+}
+void toggle(const int& num) {
+	bitmasking = bitmasking ^ (1 << (num));
+}
+
+void all() {
+	
+	bitmasking = (1 << 21) - 1;
+}
+
+void empty() {
+	bitmasking = 0;
+}
+int main() {
+	cin.tie(NULL);
+	ios::sync_with_stdio(false);
+	int rel;
+	cin >> rel;
+	string str;
+	int num = 0;
+	for (int i = 0; i < rel; i++) {
+		
+		cin >> str;
+		if (str == "add") {
+			cin >> num;
+			add(num);
+		}
+
+		else if (str == "remove") {
+			cin >> num;
+			remove(num);
+		}
+		else if (str == "check") {
+			cin >> num;
+			cout << check(num) << "\n";
+			//printf("\n");
+		}
+		else if (str == "toggle") {
+			cin >> num;
+			toggle(num);
+		}
+		else if (str == "all") {
+			all();
+		}
+
+		else if (str == "empty") {
+			empty();
+		}
+		//cout << "bimasking : " << bitmasking << endl;
+	}
+
+	return 0;
+}
