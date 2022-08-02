@@ -1,0 +1,36 @@
+#include<iostream>
+
+#include<map>
+using namespace std;
+map<string, int>arr1;
+map<string, int>arr2;
+int main() {
+	cin.tie(NULL);
+	ios::sync_with_stdio(false);
+	
+	int count = 0;
+	int N, M;
+	string nonlisten, nonwatch;
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
+		cin >> nonlisten;
+		arr1.insert({ nonlisten,i + 1 });
+
+
+	}
+	auto it = arr2.begin();
+	for (int i = 0; i < M; i++) {
+		cin >> nonwatch;
+		it=arr1.find(nonwatch);
+		if (it != arr1.end()) {
+			arr2.insert({ nonwatch, i + 1 });
+			count++;
+		}
+	}
+	it = arr2.begin();
+	cout << count << "\n";
+	for (auto i = arr2.begin(); i != arr2.end(); ++i) {
+		cout << i->first << "\n";
+	}
+	return 0;
+}
