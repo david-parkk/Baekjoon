@@ -1,0 +1,106 @@
+#include<iostream>
+
+using namespace std;
+
+
+class heap {
+private:
+	int size;
+public:
+	heap();
+	int arr[100001];
+	int Top();
+	int Size();
+	void Insert(int num);
+	void Delete();
+	void Sizeup();
+	void Sizedown();
+
+};
+void heap::Sizeup() {
+	this->size++;
+}
+void heap::Sizedown() {
+	this->size--;
+}
+heap::heap() {
+	size = 0;
+	arr[0] = 0;
+}
+
+int heap::Top() {
+	if (this->Size() == 0)
+		return 0;
+	return arr[1];
+}
+int heap::Size() {
+	return size;
+}
+
+
+void heap::Delete() {
+	if (size == 0)return;
+	if (size == 1) {
+		arr[1] = NULL;
+	}
+	int mysize = this->Size();
+	arr[1] = arr[mysize];	
+	int parent = 1;
+	int child;
+	int temp;
+	while (1) {
+		child = parent * 2;
+		if (child < (this->Size()) && arr[child] > arr[child + 1]) {
+			child++;
+		}
+		if (child  >= size||arr[child]>arr[parent]) {
+			this->Sizedown();
+			return;
+		}
+		temp = arr[child];
+		arr[child] = arr[parent];
+		arr[parent] = temp;
+		parent = child;
+	}
+}
+
+
+void heap::Insert(int num) {
+	this->Sizeup();
+	int here = this->Size();
+	while (1) {
+		
+		if (this->arr[here / 2] < num||this->Size()==1) {//넣는 수가 끌때(finsh)
+			arr[here] = num;
+			break;
+		}
+		else {
+			arr[here] = arr[here / 2];
+			here = here / 2;
+		}
+
+
+	}
+}
+
+int main() {
+	cin.tie(NULL);
+	ios::sync_with_stdio(false);
+	int N;
+	heap myheap;
+	cin >> N;
+	int num;
+	for (int i = 0; i < N; i++) {
+		cin >> num;
+		if (num == 0) {
+			cout << myheap.Top() << "\n";
+			myheap.Delete();
+		}
+		else if (num > 0) {
+			myheap.Insert(num);
+		}
+		
+	}
+
+	return 0;
+}
