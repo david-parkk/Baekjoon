@@ -1,0 +1,62 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+int p;
+int temp1, temp2;
+vector<pair<int, int>> vec1;
+
+bool compare(pair<int, int>a, pair<int, int>b) {
+	if (a.second == b.second) {
+		return a.first < b.first;
+	}
+	return a.second < b.second;
+}
+int main() {
+	cin.tie(NULL);
+	ios::sync_with_stdio(false);
+	int count;
+	int time;
+	int day = 0;
+	while (1) {
+		day++;
+		count = 0;
+		time = 0;
+		vec1.clear();
+		cin >> p;
+		if (p == 0)
+			break;
+		
+		int arr[100] = { 0 };
+		for (int i = 1; i <= p; i++) {
+			cin >> temp1 >> temp2;
+			vec1.push_back({ (temp1*2),(temp2*2) });
+		}
+		sort(vec1.begin(), vec1.end(), compare);
+		/*
+		cout <<" sorting ......" << endl;
+		for (int i = 0; i < vec1.size(); i++) {
+			cout << vec1[i].first << ", " << vec1[i].second << endl;
+		}
+		cout << endl;
+		*/
+		for (int i = 0; i < vec1.size(); i++) {
+			if (vec1[i].first == vec1[i].second)
+				continue;
+			for (int j = vec1[i].first; j < vec1[i].second; j++) {
+				if (arr[j] == 0) {
+					arr[j] = 1;
+					count++;
+					break;
+				}
+			}
+			
+		}
+		cout << "On day " << day << " Emma can attend as many as " << count << " parties.\n";
+	}
+
+
+
+	return 0;
+}
